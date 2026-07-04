@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>E-posta Doğrulandı — Ne Giysem</title>
+<style>
+  :root { color-scheme: light; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+         background: linear-gradient(180deg, #F8ECF4 0%, #E8CEE2 100%); color: #241622; }
+  .card { background: #fff; border-radius: 20px; padding: 40px 32px; max-width: 400px;
+          margin: 24px; text-align: center; box-shadow: 0 8px 40px rgba(36,22,34,.12); }
+  .logo { width: 88px; height: 88px; border-radius: 22px; margin-bottom: 20px; }
+  h1 { font-size: 24px; margin: 0 0 10px; }
+  p  { font-size: 15px; line-height: 22px; color: #5a4a56; margin: 0 0 24px; }
+  .btn { display: inline-block; background: #7C1A8C; color: #fff; text-decoration: none;
+         font-size: 17px; font-weight: 700; padding: 16px 44px; border-radius: 999px; }
+  .hint { margin-top: 18px; font-size: 12px; color: #9a8a96; line-height: 18px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <img class="logo" src="logo.png" alt="Ne Giysem" />
+    <h1>E-postan doğrulandı ✅</h1>
+    <p>Hesabın hazır! Şimdi uygulamaya dönüp e-posta ve şifrenle giriş yapabilirsin.</p>
+    <a class="btn" id="open" href="negiysem://auth">Uygulamayı Aç</a>
+    <p class="hint">
+      Buton çalışmazsa <b>Ne Giysem</b> uygulamasını elle açman yeterli.<br/>
+      Bu sayfayı bilgisayarda açtıysan: telefonundan uygulamaya girip giriş yap.
+    </p>
+  </div>
+  <script>
+    // Auto-attempt on mobile — works in many browsers; Chrome may require the
+    // button tap (user gesture), which is why the big button is the hero.
+    var isAndroid = /android/i.test(navigator.userAgent);
+    var isMobile = /android|iphone|ipad/i.test(navigator.userAgent);
+    if (isAndroid) {
+      // Chrome-friendly intent URL with explicit package.
+      document.getElementById('open').href =
+        'intent://auth#Intent;scheme=negiysem;package=com.mentis.negiysem;end';
+    }
+    if (isMobile) {
+      setTimeout(function () { window.location.href = 'negiysem://auth'; }, 400);
+    }
+  </script>
+</body>
+</html>
